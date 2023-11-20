@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.nav {
+   background-color: cornflowerblue;
+    height: 5vh
+}
+
+.item {
+    background-color: navajowhite;
+    flex-grow: 1;
+    margin-top: 1vh;
+    display: flex;
+}
+
+.item_1 {
+    width: 50%
+}
+.item_2 {
+    width: 50%;
+    background-color: burlywood;
+}
+
+
+.footer {
+   background-color: darkgray;
+    height: 5vh;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
