@@ -14,6 +14,8 @@ const initialState = {
                     {id: uuidv4(), material: 'PVDF(Solef)', code: '82'},
                     {id: uuidv4(), material: 'PFA(Teflon)', code: '85'},
                 ]},
+        {id: uuidv4(), valueRus: 'Плотность, кг/м3: ', valueEng: 'density', currentValue: '', type: 'number'},
+        {id: uuidv4(), valueRus: 'Рабочая температура, град С: ', valueEng: 'temperature', currentValue: '', type: 'number'},
     ]
 }
 const pumpOptionsSlice = createSlice({

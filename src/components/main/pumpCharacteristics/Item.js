@@ -32,7 +32,8 @@ const Item = ({el}) => {
             } if (text && text.length > 4) {
                 setError({boolean: true, value: 'Значение превышает стандартный диапазон'})   /// Учесть значения с плавающей точкой
             }
-        } if (type === 'select') {
+        } else if (type === 'select') {
+            console.log(text)
             if (!text) {
                 setErrorSelect({boolean: true, value: 'Значение не выбрано'})
             }
@@ -58,12 +59,13 @@ const Item = ({el}) => {
                 {el.type === 'select' &&
                     <label> {el.valueRus}
                         <select
-                            className={error.boolean? styles.input_error: ''}
+                            className={errorSelect.boolean? styles.input_error: ''}
+                            onFocus={()=> setErrorSelect({boolean: false, value: ''})}
                             onBlur={e=> checkingError(e.target.value, el.id, el.type)}
                             value={'' || el.currentValue}
                             onChange={e=> changeHandler(e.target.value, el.id)}
                         >
-                            <option value=''>--option--</option>
+                            <option value='' disabled>--option--</option>
                             {el.optionSelect.map(el=> <option key={el.id} value={el.material}>{el.material}</option>)}
                         </select>
                     </label>
