@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 
 import PumpSelected from "./pumpSelected/PumpSelected";
 import PumpCharacteristics from "./pumpCharacteristics/pumpCharacteristics";
@@ -9,6 +9,7 @@ import GeneratePump from "./generatePump/GeneratePump";
 
 const Main = () => {
     const pumpSelected = useSelector(store => store.pump.currentValue)
+
     return (
         <div className={styles.item}>
            <div className={styles.item_1}>

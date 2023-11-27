@@ -1,0 +1,6 @@
+export const GHI_PUMP = 'GHI_PUMP'
+export const GH_PUMP = 'GH_PUMP'
+export const GHM_PUMP = 'GHM_PUMP'
+export const GHO_PUMP = 'GHO_PUMP'
+export const GHS_PUMP = 'GHS_PUMP'
+export const ALL_PUMP = 'ALL_PUMP'

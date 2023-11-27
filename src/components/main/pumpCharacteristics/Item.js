@@ -13,6 +13,8 @@ const Item = ({el}) => {
         boolean: false,
         value: ''
     })
+
+
     const dispatch = useDispatch()
 
     function inputHandler(text, id) {
@@ -39,40 +41,39 @@ const Item = ({el}) => {
             }
             }
         }
-
     return (
-        <div>
-            <div>
-                {el.type === 'number' &&
-                    <label> {el.valueRus}
-                        <input
-                            onChange={e=> inputHandler(e.target.value, el.id)}
-                            className={error.boolean? styles.input_error: ''}
-                            onFocus={()=> setError({boolean: false, value: ''})}
-                            onBlur={e=> checkingError(e.target.value, el.id, el.type)}
-                            type={el.type}/>
-                    </label>
-                }
-            </div>
-            <div className={error.boolean? styles.text_error: ''}>{error.value}</div>
-            <div>
-                {el.type === 'select' &&
-                    <label> {el.valueRus}
-                        <select
-                            className={errorSelect.boolean? styles.input_error: ''}
-                            onFocus={()=> setErrorSelect({boolean: false, value: ''})}
-                            onBlur={e=> checkingError(e.target.value, el.id, el.type)}
-                            value={'' || el.currentValue}
-                            onChange={e=> changeHandler(e.target.value, el.id)}
-                        >
-                            <option value='' disabled>--option--</option>
-                            {el.optionSelect.map(el=> <option key={el.id} value={el.material}>{el.material}</option>)}
-                        </select>
-                    </label>
-                }
-            </div>
-            <div className={errorSelect.boolean? styles.text_error: '' }>{errorSelect.value}</div>
-        </div>
+           <div>
+               <div>
+                   {el.type === 'number' &&
+                       <label> {el.valueRus}
+                           <input
+                               onChange={e=> inputHandler(e.target.value, el.id)}
+                               className={error.boolean? styles.input_error: ''}
+                               onFocus={()=> setError({boolean: false, value: ''})}
+                               onBlur={e=> checkingError(e.target.value, el.id, el.type)}
+                               type={el.type}/>
+                       </label>
+                   }
+               </div>
+               <div className={error.boolean? styles.text_error: ''}>{error.value}</div>
+               <div>
+                   {el.type === 'select' &&
+                       <label> {el.valueRus}
+                           <select
+                               className={errorSelect.boolean? styles.input_error: ''}
+                               onFocus={()=> setErrorSelect({boolean: false, value: ''})}
+                               onBlur={e=> checkingError(e.target.value, el.id, el.type)}
+                               value={'' || el.currentValue}
+                               onChange={e=> changeHandler(e.target.value, el.id)}
+                           >
+                               <option value='' disabled>--option--</option>
+                               {el.optionSelect.map(el=> <option key={el.id} value={el.material}>{el.material}</option>)}
+                           </select>
+                       </label>
+                   }
+               </div>
+               <div className={errorSelect.boolean? styles.text_error: '' }>{errorSelect.value}</div>
+           </div>
     );
 };
 
