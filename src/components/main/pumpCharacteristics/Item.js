@@ -35,7 +35,6 @@ const Item = ({el}) => {
                 setError({boolean: true, value: 'Значение превышает стандартный диапазон'})   /// Учесть значения с плавающей точкой
             }
         } else if (type === 'select') {
-            console.log(text)
             if (!text) {
                 setErrorSelect({boolean: true, value: 'Значение не выбрано'})
             }
@@ -67,7 +66,7 @@ const Item = ({el}) => {
                                onChange={e=> changeHandler(e.target.value, el.id)}
                            >
                                <option value='' disabled>--option--</option>
-                               {el.optionSelect.map(el=> <option key={el.id} value={el.material}>{el.material}</option>)}
+                               {el.optionSelect.map(el=> <option key={el.id} value={el.value}>{el.value}</option>)}
                            </select>
                        </label>
                    }
