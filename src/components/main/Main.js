@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 
 import PumpSelected from "./pumpSelected/PumpSelected";
 import PumpCharacteristics from "./pumpCharacteristics/pumpCharacteristics";
@@ -12,17 +12,18 @@ const Main = () => {
 
     return (
         <div className={styles.item}>
-           <div className={styles.item_1}>
-               <div>
-                   <PumpSelected/>
-               </div>
-               <div>
-                   {!pumpSelected || <PumpCharacteristics/>}
-               </div>
-               <div>
-                   <GeneratePump/>
-               </div>
-           </div>
+            <div className={styles.item_1}>
+                <div>
+                    <PumpSelected/>
+                </div>
+                <div>
+                    {!pumpSelected || <PumpCharacteristics/>}
+                </div>
+                <div style={{color: 'red'}}>Доп опции</div>
+                <div>
+                    <GeneratePump/>
+                </div>
+            </div>
 
             <div className={styles.item_2}>
                 {!pumpSelected || <ImagePump/>}

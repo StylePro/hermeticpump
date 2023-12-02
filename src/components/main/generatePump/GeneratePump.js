@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 const GeneratePump = () => {
     const pump = useSelector(store => store.pump.currentValue)
     const propertiesPumps = useSelector(store => store.optionsPumps.property)
-    const [data, setData] = useState(null)
+    const [code, setCode] = useState(null)
 
     function getPump() {
         let flow = null
@@ -34,8 +34,6 @@ const GeneratePump = () => {
                 case 'PFA(Teflon)':
                     codeMaterial = '85'
                     break;
-                default:
-                    ''      //дописать
             }
         }
         function getCodeDensity() {
@@ -82,20 +80,17 @@ const GeneratePump = () => {
                     explosionProtection = el.currentValue
                     getCodeExplosionProtection ()
                     break;
-                default: ''  // дописать
-
             }
         })
-        setData(`${pump}${flow}/${head}.${codeMaterial}${codeDensity}${codeExplosionProtection}`)
     }
-
     return (
         <div>
             <button
+                disabled
                 onClick={getPump}
             >Сформировать код
             </button>
-            <div>{data}</div>
+            <div>{code}</div>
         </div>
     )
 };

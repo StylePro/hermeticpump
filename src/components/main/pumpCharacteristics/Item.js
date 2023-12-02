@@ -14,7 +14,6 @@ const Item = ({el}) => {
         value: ''
     })
 
-
     const dispatch = useDispatch()
 
     function inputHandler(text, id) {
@@ -27,14 +26,14 @@ const Item = ({el}) => {
         } else {setError({boolean: true, value: 'Значение не заполнено'})}
 
     }
-    function checkingError(text, id, type) {
-        if (type === 'number') {
+    function checkingError(text, id, type, required) {
+        if (type === 'number' && required) {
             if (!text) {
                 setError({boolean: true, value: 'Значение не заполнено'})
             } if (text && text.length > 4) {
                 setError({boolean: true, value: 'Значение превышает стандартный диапазон'})   /// Учесть значения с плавающей точкой
             }
-        } else if (type === 'select') {
+        } else if (type === 'select' && required) {
             if (!text) {
                 setErrorSelect({boolean: true, value: 'Значение не выбрано'})
             }
@@ -49,7 +48,7 @@ const Item = ({el}) => {
                                onChange={e=> inputHandler(e.target.value, el.id)}
                                className={error.boolean? styles.input_error: ''}
                                onFocus={()=> setError({boolean: false, value: ''})}
-                               onBlur={e=> checkingError(e.target.value, el.id, el.type)}
+                               onBlur={e=> checkingError(e.target.value, el.id, el.type, el.requiredField)}
                                type={el.type}/>
                        </label>
                    }
