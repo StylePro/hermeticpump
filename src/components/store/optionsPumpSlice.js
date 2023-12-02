@@ -4,9 +4,6 @@ import {ALL_PUMP, GHI_PUMP} from "../../const/const";
 
 
 
-
-
-
 const initialState = {
     property: [
         {id: uuidv4(), valueRus: 'Подача, м3/ч: ', valueEng: 'flow', currentValue: '', type: 'number', typePump: ALL_PUMP},
@@ -45,19 +42,19 @@ const pumpOptionsSlice = createSlice({
     reducers: {
         changeInput(state, action) {
             const {text, id} = action.payload
-            let str = state.property.find(el=> el.id === id)
-            str.currentValue=text
+            let str = state.property.find(el => el.id === id)
+            str.currentValue = text
         },
         changeSelect(state, action) {
             const {text, id} = action.payload
-            let str = state.property.find(el=> el.id === id)
-            str.currentValue=text
-        }
+            let str = state.property.find(el => el.id === id)
+            str.currentValue = text
+        },
     }
 })
 
 export const {
     changeInput,
-    changeSelect
+    changeSelect,
 } = pumpOptionsSlice.actions
 export default pumpOptionsSlice.reducer

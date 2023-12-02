@@ -29,9 +29,9 @@ const pumpSlice = createSlice({
             let selectedObject = state.pumpSeries.find(el=> el.nameRus === action.payload)
             state.currentValue = action.payload
             state.currentPermanentName = selectedObject.permanentName
-        }
+        },
     }
 })
 
-export const {addPump} = pumpSlice.actions
+export const {addPump, clearFields,} = pumpSlice.actions
 export default pumpSlice.reducer

@@ -35,7 +35,7 @@ const GeneratePump = () => {
                     codeMaterial = '85'
                     break;
                 default:
-                    codeMaterial = 'error'
+                    ''      //дописать
             }
         }
         function getCodeDensity() {
@@ -58,7 +58,7 @@ const GeneratePump = () => {
             if (explosionProtection === 'Да') {
                 codeExplosionProtection = 2
             } else if (explosionProtection === 'Нет'){
-                codeExplosionProtection = 3
+                codeExplosionProtection = 1
             }
         }
 
@@ -82,6 +82,8 @@ const GeneratePump = () => {
                     explosionProtection = el.currentValue
                     getCodeExplosionProtection ()
                     break;
+                default: ''  // дописать
+
             }
         })
         setData(`${pump}${flow}/${head}.${codeMaterial}${codeDensity}${codeExplosionProtection}`)

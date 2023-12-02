@@ -5,7 +5,7 @@ import pumpOptionsReducer from './optionsPumpSlice'
 export default configureStore ({
     reducer: {
         pump: pumpReducer,
-        optionsPumps: pumpOptionsReducer
+        optionsPumps: pumpOptionsReducer,
     }
 });
 
