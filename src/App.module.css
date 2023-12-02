@@ -36,3 +36,9 @@ img {
     height: 100%;
     object-fit: contain;
 }
+
+.blockPump {
+    border: 1px solid teal;
+    display: flex;
+
+}

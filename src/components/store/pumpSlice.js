@@ -30,8 +30,13 @@ const pumpSlice = createSlice({
             state.currentValue = action.payload
             state.currentPermanentName = selectedObject.permanentName
         },
+        removeSelection(state, action) {
+            console.log(action.payload)
+            state.currentValue = action.payload
+            state.currentPermanentName = action.payload
+        }
     }
 })
 
-export const {addPump, clearFields,} = pumpSlice.actions
+export const {addPump, removeSelection} = pumpSlice.actions
 export default pumpSlice.reducer

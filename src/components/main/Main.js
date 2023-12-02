@@ -13,9 +13,10 @@ const Main = () => {
     return (
         <div className={styles.item}>
             <div className={styles.item_1}>
-                <div>
+                <div className={styles.blockPump}>
                     <PumpSelected/>
                 </div>
+
                 <div>
                     {!pumpSelected || <PumpCharacteristics/>}
                 </div>
