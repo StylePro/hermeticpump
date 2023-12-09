@@ -13,11 +13,11 @@ const initialState = {
     currentValue: '',
     currentPermanentName: '',
     pumpSeries: [
-        {id: uuidv4(), nameRus: 'ГХ', permanentName: GH_PUMP, image: GH},
-        {id: uuidv4(), nameRus: 'ГХМ', permanentName: GHM_PUMP, image: GHM},
-        {id: uuidv4(), nameRus: 'ГХО', permanentName: GHO_PUMP, image: GHO},
-        {id: uuidv4(), nameRus: 'ГХC', permanentName: GHS_PUMP, image: GHS},
-        {id: uuidv4(), nameRus: 'ГХИ', permanentName: GHI_PUMP, image: GHI},
+        {id: uuidv4(), nameRus: 'ГХ', typePump: GH_PUMP, image: GH},
+        {id: uuidv4(), nameRus: 'ГХМ', typePump: GHM_PUMP, image: GHM},
+        {id: uuidv4(), nameRus: 'ГХО', typePump: GHO_PUMP, image: GHO},
+        {id: uuidv4(), nameRus: 'ГХC', typePump: GHS_PUMP, image: GHS},
+        {id: uuidv4(), nameRus: 'ГХИ', typePump: GHI_PUMP, image: GHI},
     ],
 }
 
@@ -28,10 +28,9 @@ const pumpSlice = createSlice({
         addPump(state, action) {
             let selectedObject = state.pumpSeries.find(el=> el.nameRus === action.payload)
             state.currentValue = action.payload
-            state.currentPermanentName = selectedObject.permanentName
+            state.currentPermanentName = selectedObject.typePump
         },
         removeSelection(state, action) {
-            console.log(action.payload)
             state.currentValue = action.payload
             state.currentPermanentName = action.payload
         }

@@ -3,7 +3,7 @@ import styles from "../../../App.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {addPump, removeSelection} from "../../store/pumpSlice";
 
-const PumpSelected = () => {
+const PumpSelected = ({toggleOpenBlock}) => {
     const dispatch = useDispatch();
     const pumpSelected = useSelector(store => store.pump.currentValue)
     const pumps = useSelector(store => store.pump.pumpSeries)
@@ -11,6 +11,7 @@ const PumpSelected = () => {
         dispatch(addPump(e.target.value))
     }
     function clearThePumpField () {
+        toggleOpenBlock(false)
         dispatch(removeSelection(''))
     }
     return (
@@ -25,6 +26,7 @@ const PumpSelected = () => {
                     )}
                 </select>
                 <button
+                    disabled = {!pumpSelected}
                 onClick={clearThePumpField}
                 >Очистить</button>
             </label>

@@ -1,13 +1,31 @@
 import React, {useState} from 'react';
 import {useSelector} from "react-redux";
+import {ALL_PUMP} from "../../../const/const";
 
 
-const GeneratePump = () => {
+const GeneratePump = ({toggleOpenBlock, openBlock}) => {
+    const pumpConst = useSelector(store => store.pump.currentPermanentName)
     const pump = useSelector(store => store.pump.currentValue)
     const propertiesPumps = useSelector(store => store.optionsPumps.property)
-    const [code, setCode] = useState(null)
-
+    const [data, setData] = useState('')
+    const [error, setError] = useState(false)
+    console.log(data)
     function getPump() {
+        if (!pumpConst) {
+            return setData('')
+        }
+        function validationOfFillingInFields() {
+            let res = propertiesPumps.filter(el => {
+                if (el.requiredField === true && el.typePump === ALL_PUMP || el.typePump === pumpConst) {
+                    return (el)
+                }
+            }).every(elem => elem.currentValue)
+            if (res) {
+                setError(false)
+            } else {setError(true)}
+        }
+        validationOfFillingInFields()
+
         let flow = null
         let head = null
         let material = null
@@ -35,7 +53,9 @@ const GeneratePump = () => {
                     codeMaterial = '85'
                     break;
             }
+
         }
+
         function getCodeDensity() {
             if (density <= 600) {
                 return codeDensity = 3
@@ -52,18 +72,20 @@ const GeneratePump = () => {
             }
         }
 
-        function getCodeExplosionProtection () {
+        function getCodeExplosionProtection() {
             if (explosionProtection === 'Да') {
                 codeExplosionProtection = 2
-            } else if (explosionProtection === 'Нет'){
+            } else if (explosionProtection === 'Нет') {
                 codeExplosionProtection = 1
             }
         }
 
-        propertiesPumps.map(el => {
+        propertiesPumps.forEach(el => {
             switch (el.valueEng) {
                 case 'flow':
-                    flow = el.currentValue
+                    if (el.currentValue) {
+                        flow = el.currentValue
+                    }
                     break;
                 case 'head':
                     head = el.currentValue
@@ -78,19 +100,24 @@ const GeneratePump = () => {
                     break;
                 case 'availabilityOfExplosionProtection':
                     explosionProtection = el.currentValue
-                    getCodeExplosionProtection ()
+                    getCodeExplosionProtection()
                     break;
             }
         })
+        toggleOpenBlock(true)
+        setData(`${pump}${flow}/${head}.${codeMaterial}${codeDensity}${codeExplosionProtection}`)
     }
+
     return (
         <div>
             <button
-                disabled
                 onClick={getPump}
+                onBlur={()=> setError(false)}
             >Сформировать код
             </button>
-            <div>{code}</div>
+            {openBlock ?
+                <div>{error? 'Заполните обязательные поля' : data}</div>
+                : ''}
         </div>
     )
 };

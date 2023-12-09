@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import PumpSelected from "./pumpSelected/PumpSelected";
 import PumpCharacteristics from "./pumpCharacteristics/pumpCharacteristics";
@@ -9,12 +9,16 @@ import GeneratePump from "./generatePump/GeneratePump";
 
 const Main = () => {
     const pumpSelected = useSelector(store => store.pump.currentValue)
+    const [openBlock, setOpenBlock] = useState(false)
+    function toggleOpenBlock (boolean) {
+        setOpenBlock(boolean)
+    }
 
     return (
         <div className={styles.item}>
             <div className={styles.item_1}>
-                <div className={styles.blockPump}>
-                    <PumpSelected/>
+                <div>
+                    <PumpSelected toggleOpenBlock={toggleOpenBlock}/>
                 </div>
 
                 <div>
@@ -22,7 +26,7 @@ const Main = () => {
                 </div>
                 <div style={{color: 'red'}}>Доп опции</div>
                 <div>
-                    <GeneratePump/>
+                    <GeneratePump toggleOpenBlock={toggleOpenBlock} openBlock={openBlock}/>
                 </div>
             </div>
 
