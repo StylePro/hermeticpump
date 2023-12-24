@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "../../../App.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {addPump, removeSelection} from "../../store/pumpSlice";
+import {clearContents} from "../../store/optionsPumpSlice";
 
 const PumpSelected = ({toggleOpenBlock}) => {
     const dispatch = useDispatch();
@@ -9,6 +10,7 @@ const PumpSelected = ({toggleOpenBlock}) => {
     const pumps = useSelector(store => store.pump.pumpSeries)
     function changeHandler (e) {
         dispatch(addPump(e.target.value))
+        dispatch(clearContents())
     }
     function clearThePumpField () {
         toggleOpenBlock(false)

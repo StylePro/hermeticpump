@@ -132,11 +132,15 @@ const pumpOptionsSlice = createSlice({
             let str = state.property.find(el => el.id === id)
             str.currentValue = text
         },
+        clearContents() {
+            return(initialState)
+        }
     }
 })
 
 export const {
     changeInput,
     changeSelect,
+    clearContents,
 } = pumpOptionsSlice.actions
 export default pumpOptionsSlice.reducer

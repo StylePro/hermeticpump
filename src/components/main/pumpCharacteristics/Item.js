@@ -49,7 +49,10 @@ const Item = ({el}) => {
                                className={error.boolean? styles.input_error: ''}
                                onFocus={()=> setError({boolean: false, value: ''})}
                                onBlur={e=> checkingError(e.target.value, el.id, el.type, el.requiredField)}
-                               type={el.type}/>
+                               type={el.type}
+                               value={el.currentValue}
+                           />
+
                        </label>
                    }
                </div>

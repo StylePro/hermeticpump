@@ -4,13 +4,78 @@ import {ALL_PUMP} from "../../../const/const";
 
 
 const GeneratePump = ({toggleOpenBlock, openBlock}) => {
+
+
     const pumpConst = useSelector(store => store.pump.currentPermanentName)
     const pump = useSelector(store => store.pump.currentValue)
     const propertiesPumps = useSelector(store => store.optionsPumps.property)
     const [data, setData] = useState('')
     const [error, setError] = useState(false)
-    console.log(data)
+
+        // проверяем все ли поля заполнены
+    function getError () {
+        const verificationFields = propertiesPumps
+            .filter(el=> el.requiredField === true && el.typePump === ALL_PUMP || el.typePump === pumpConst)
+            .every(el=> el.currentValue)
+       return(verificationFields)
+    }
     function getPump() {
+        const result = getError()
+        getError()
+        if (result){
+           const values = getValues()
+            dataProcessing(values)
+        } else {
+            setError(true);
+            console.log(error)
+        }
+    }
+    function dataProcessing(data){
+        function generateMaterialKey(string){
+            switch (string) {
+                case '12Х18Н10Б':
+                    return '13'
+                case '10Х17Н13М2Б':
+                    return '14'
+                case '06ХН28МДБ':
+                    return '02'
+                case 'PVDF(Solef)':
+                    return '82'
+                case 'PFA(Teflon)':
+                    return '85'
+            }
+        }
+        function generateDensityKey(density){
+            if (density <= 600) {
+                return 3
+            }
+            if (density > 600 && density <= 800) {
+                return  4
+            }
+            if (density > 800 && density < 1200) {
+                return 5
+            }
+            if (density >= 1200 && density <= 1600) {
+                return 6
+            }
+            if (density > 1600) {
+                return 7
+            }
+        }
+        console.log(generateMaterialKey(data.material))
+        console.log(generateDensityKey(data.density))
+    }
+
+    function getValues() {
+        const elements = propertiesPumps.reduce((acc, el)=> {
+            if(el.currentValue) {
+                acc[el.valueEng] = el.currentValue
+            }
+            return acc
+        }, {})
+        return(elements)
+    }
+    /*function getPump() {
         if (!pumpConst) {
             return setData('')
         }
@@ -106,18 +171,14 @@ const GeneratePump = ({toggleOpenBlock, openBlock}) => {
         })
         toggleOpenBlock(true)
         setData(`${pump}${flow}/${head}.${codeMaterial}${codeDensity}${codeExplosionProtection}`)
-    }
+    }*/
 
     return (
         <div>
             <button
                 onClick={getPump}
-                onBlur={()=> setError(false)}
             >Сформировать код
             </button>
-            {openBlock ?
-                <div>{error? 'Заполните обязательные поля' : data}</div>
-                : ''}
         </div>
     )
 };
