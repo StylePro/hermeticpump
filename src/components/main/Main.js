@@ -9,16 +9,13 @@ import GeneratePump from "./generatePump/GeneratePump";
 
 const Main = () => {
     const pumpSelected = useSelector(store => store.pump.currentValue)
-    const [openBlock, setOpenBlock] = useState(false)
-    function toggleOpenBlock (boolean) {
-        setOpenBlock(boolean)
-    }
+
 
     return (
         <div className={styles.item}>
             <div className={styles.item_1}>
                 <div>
-                    <PumpSelected toggleOpenBlock={toggleOpenBlock}/>
+                    <PumpSelected/>
                 </div>
 
                 <div>
@@ -26,7 +23,7 @@ const Main = () => {
                 </div>
                 <div style={{color: 'red'}}>Доп опции</div>
                 <div>
-                    <GeneratePump toggleOpenBlock={toggleOpenBlock} openBlock={openBlock}/>
+                    <GeneratePump/>
                 </div>
             </div>
 
