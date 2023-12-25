@@ -1,9 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './pumpCharacteristics.module.css'
 import {changeInput, changeSelect} from "../../store/optionsPumpSlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const Item = ({el}) => {
+
+    const pump = useSelector(store => store.pump.currentPermanentName)
+    console.log(pump)
+
+    useEffect(()=> {
+        setError({
+            boolean: false,
+            value: ''
+        });
+        setErrorSelect({
+            boolean: false,
+            value: ''
+        })
+    }, [pump])
 
     const [error, setError] = useState({
         boolean: false,
@@ -13,7 +27,6 @@ const Item = ({el}) => {
         boolean: false,
         value: ''
     })
-
     const dispatch = useDispatch()
 
     function inputHandler(text, id) {
@@ -27,18 +40,24 @@ const Item = ({el}) => {
 
     }
     function checkingError(text, id, type, required) {
-        if (type === 'number' && required) {
-            if (!text) {
-                setError({boolean: true, value: 'Значение не заполнено'})
-            } if (text && text.length > 4) {
-                setError({boolean: true, value: 'Значение превышает стандартный диапазон'})   /// Учесть значения с плавающей точкой
+        if (required) {
+            switch (type) {
+                case 'number':
+                  if (!text){
+                      return setError({boolean: true, value: 'Значение не заполнено'})
+                  }
+                  if (text.length > 4){
+                      return (setError({boolean: true, value: 'Значение превышает стандартный диапазон'}))
+                  }
+                  break;
+                case 'select':
+                    if (!text){
+                        return setErrorSelect({boolean: true, value: 'Значение не выбрано'})
+                    }
             }
-        } else if (type === 'select' && required) {
-            if (!text) {
-                setErrorSelect({boolean: true, value: 'Значение не выбрано'})
-            }
-            }
+        } else {return ''}
         }
+
     return (
            <div>
                <div>
@@ -63,7 +82,7 @@ const Item = ({el}) => {
                            <select
                                className={errorSelect.boolean? styles.input_error: ''}
                                onFocus={()=> setErrorSelect({boolean: false, value: ''})}
-                               onBlur={e=> checkingError(e.target.value, el.id, el.type)}
+                               onBlur={e=> checkingError(e.target.value, el.id, el.type, el.requiredField)}
                                value={'' || el.currentValue}
                                onChange={e=> changeHandler(e.target.value, el.id)}
                            >

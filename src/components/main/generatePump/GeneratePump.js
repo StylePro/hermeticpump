@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {ALL_PUMP} from "../../../const/const";
-import store from "../../store/store";
 import {addBrandPump} from "../../store/pumpBrandSlice";
+import styles from "../pumpCharacteristics/pumpCharacteristics.module.css";
 
 
 const GeneratePump = () => {
@@ -12,7 +12,7 @@ const GeneratePump = () => {
     const pump = useSelector(store => store.pump.currentValue)
     const propertiesPumps = useSelector(store => store.optionsPumps.property)
     const pumpBrand = useSelector(store=> store.pumpBrand.currentValue)
-    const [error, setError] = useState(false)
+    const [error, setError] = useState({toggle: false, value: ''})
     const dispatch = useDispatch()
 
     function getError () {
@@ -26,11 +26,11 @@ const GeneratePump = () => {
         const result = getError()
         getError()
         if (result){
+            setError({toggle: false, value: ''})
            const values = getValues()
             dispatch(addBrandPump(`${pump}${values.flow}/${values.head}.${dataProcessing(values)}`))
         } else {
-            setError(true);
-            console.log(error)
+            setError({toggle: true, value: 'Не все обязательные ячейки заполнены'});
         }
     }
     function dataProcessing(data){
@@ -96,6 +96,7 @@ const GeneratePump = () => {
             >Сформировать код
             </button>
             <div>{pumpBrand}</div>
+            <div className={error.toggle ? styles.text_error : ''}>{error.value}</div>
         </div>
     )
 };
