@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {ALL_PUMP} from "../../../const/const";
 import {addBrandPump} from "../../store/pumpBrandSlice";
 import styles from "../pumpCharacteristics/pumpCharacteristics.module.css";
+
 
 
 const GeneratePump = () => {
@@ -15,6 +16,9 @@ const GeneratePump = () => {
     const [error, setError] = useState({toggle: false, value: ''})
     const dispatch = useDispatch()
 
+    useEffect(()=> {
+        setError({toggle: false, value: ''})
+    }, [pump])
     function getError () {
         const verificationFields = propertiesPumps
             .filter(el=> el.requiredField === true && el.typePump === ALL_PUMP || el.typePump === pumpConst)
@@ -30,7 +34,10 @@ const GeneratePump = () => {
            const values = getValues()
             dispatch(addBrandPump(`${pump}${values.flow}/${values.head}.${dataProcessing(values)}`))
         } else {
-            setError({toggle: true, value: 'Не все обязательные ячейки заполнены'});
+            setError({toggle: true, value: 'Не все обязательные ячейки заполнены'})
+            setTimeout(()=> {
+                setError({toggle: false, value: ''})
+            }, 2000)
         }
     }
     function dataProcessing(data){
